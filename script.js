@@ -44,14 +44,14 @@ const  createInfoElement = (info) =>{
         while(additionalInfo.firstChild){
             additionalInfo.removeChild(additionalInfo.firstChild);
         }
-    const label = document.createElement("span");
+    // const label = document.createElement("span");
     const infoData = document.createElement("span");
 
     
-    label.textContent = info.label;
+    // label.textContent = info.label;
     infoData.textContent = info.data;
     
-    additionalInfo.appendChild(label);
+    // additionalInfo.appendChild(label);
     additionalInfo.appendChild(infoData);
 }
 
@@ -59,17 +59,17 @@ const handelInfoButton = (event) =>  {
     const info = [
          {
             id:"age",
-            label : "Age",
+            // label : "Age",
             data: user.dob.age,
         },
         {
             id:"email",
-            label : "Email",
+            // label : "Email",
             data: user.email,
         },
         {
             id:"phone",
-            label : "Phone",
+            // label : "Phone",
             data: user.phone,
         },
     ]
