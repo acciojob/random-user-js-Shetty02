@@ -32,7 +32,7 @@ const fetchUser = async () =>{
     const data = await resp.json();
     // console.log("Data", data.results[0]);
     user = data.results[0];
-    console.log("User",user) 
+    // console.log("User",user) 
     renderUsersBasicDetails(user);    
     createInfoElement(data);
 }
