@@ -1,84 +1,102 @@
-//your code here
-// console.log("Random User")
+let user = {};
 
+const nameElement = document.getElementById("name"),
+  imageElement = document.getElementById("img"),
+  phone = document.getElementById("phone"),
+  age = document.getElementById("age"),
+  email = document.getElementById("email"),
+  ageButtons = document.querySelector("[data-id='age']"),
+  phoneButtons = document.querySelector("[data-id='phone']"),
+  emailButtons = document.querySelector("[data-id='email']"),
+  fetchButton = document.getElementById("getUser"),
+  tabs = [
+    {
+        name: 'age',
+        element: age
+    },
+    {
+        name: 'email',
+        element: email
+    },{
+        name: 'phone',
+        element: phone
+    }
+  ],
+  additionalButtons = {
+    'age' : {
+        element: age,
+        path: '[dob][age]'
+    },
+    'phone' : {
+        element: phone,
+        data:'phone'
+    },
+    'email' : {
+        element: email,
+        data:'email'
+    }
+  };
 
-let user = {}
+const fetchUser = async () => {
+    try {
+        const response = await fetch("https://randomuser.me/api"),
+            data = await response.json();
+        user = data.results[0];
 
-const imgElement = document.getElementById("img"),
- nameElement = document.getElementById("name"),
- additionalInfo = document.getElementById("add-info"),
- infoBtn = Array.from(document.querySelectorAll("[data-id]"))
- fetchingUser = document.getElementById("getUser");
+        nameElement.textContent = user.name.first + " " + user.name.last;
+        imageElement.src = user.picture.large;
 
-const renderUsersBasicDetails = (user) =>{
-        nameElement.innerHTML = ""    ;
-        imgElement.innerHTML = "";
-        const nameSpan = document.createElement("span");
-        const img = document.createElement('img');
+    }catch(error) {
+        console.error("Error in Fetching User",error);
+    }
+}
 
-        nameSpan.textContent = user.name.first + " " + user.name.last;
-        
-        img.src = user.picture.large;
-        img.classList.add('img');
-
-        nameElement.appendChild(nameSpan);
-        imgElement.appendChild(img);
+const handleAdditionInfoButtonClick = (btnName) => {
+    console.log("Names",additionalButtons[btnName]);
+    let infoElement = document.getElementById('info'),
+        data = user[additionalButtons[btnName].data];
     
+    if(infoElement) {
+        infoElement.textContent = data;
+    }
+    else {
+        infoElement = document.createElement("span");
+        infoElement.textContent = data;
+        infoElement.id = 'info';
+    }
+     
+    additionalButtons[btnName].element.style.display = 'flex';
+    additionalButtons[btnName].element.appendChild(infoElement);
+    handleAdditionButtonProps('none');
+    fetchButton.textContent = 'Back';
+    setActiveTab(btnName);
+
 }
 
-
-const fetchUser = async () =>{
-    const resp = await fetch("https://randomuser.me/api/");
-    const data = await resp.json();
-    // console.log("Data", data.results[0]);
-    user = data.results[0];
-    // console.log("User",user) 
-    renderUsersBasicDetails(user);    
-    createInfoElement(data);
+const handleAdditionButtonProps = (val) => {
+    ageButtons.style.display = val;
+    phoneButtons.style.display = val;
+    emailButtons.style.display = val;
 }
 
-
-// const getUser = document.getElementById("getUser");
-
-const  createInfoElement = (info) =>{
-        while(additionalInfo.firstChild){
-            additionalInfo.removeChild(additionalInfo.firstChild);
-        }
-    // const label = document.createElement("span");
-    const infoData = document.createElement("span");
-
-    
-    // label.textContent = info.label;
-    infoData.textContent = info.data;
-    
-    // additionalInfo.appendChild(label);
-    additionalInfo.appendChild(infoData);
+const handleGetUserBtnClick = () => {
+    if(fetchButton.textContent === 'Back') {
+        handleAdditionButtonProps('flex');
+        fetchButton.textContent = 'Fetch User'
+        setActiveTab('');
+    }
+    else {
+        fetchUser();
+    }
+}
+// user?.dob?.age -> user.dob =  undefined -> Throw error
+const setActiveTab = (tabName) => {
+    const hideTabs = tabs.filter(tab => tab.name !== tabName);
+    hideTabs.map((tab)=> tab.element.style.display = 'none')
 }
 
-const handelInfoButton = (event) =>  {
-    const info = [
-         {
-            id:"age",
-            // label : "Age",
-            data: user.dob.age,
-        },
-        {
-            id:"email",
-            // label : "Email",
-            data: user.email,
-        },
-        {
-            id:"phone",
-            // label : "Phone",
-            data: user.phone,
-        },
-    ]
-    const id = event.target.dataset.id;
-    const data = info.find((item) => item.id === id);
-    // console.log("info",data)
-    createInfoElement(data);
-}
-
-infoBtn.map((btn) => btn.addEventListener("click", handelInfoButton));
-fetchingUser.addEventListener('click',fetchUser)
-document.addEventListener("DOMContentLoaded", fetchUser);
+document.addEventListener('DOMContentLoaded',fetchUser);
+ageButtons.addEventListener("click", () => handleAdditionInfoButtonClick('age'));
+phoneButtons.addEventListener("click", () => handleAdditionInfoButtonClick('phone'));
+emailButtons.addEventListener("click", () => handleAdditionInfoButtonClick('email'));
+fetchButton.addEventListener('click',handleGetUserBtnClick);

@@ -6,37 +6,49 @@
 	<link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-        <div class="user-dash" id="user-dash">
-            <h2>User Dash</h2>
-            <div >
-                <span>Image:</span>
-                <div id="img"></div>
-                <!-- <span><img src="" alt=""></span> -->
-            </div>
-            <div >
-                <span>Username:</span>
-                <div id="name"></div>
-                <!-- <span>Data</span> -->
-            </div>
+<body><h3>User Dashboard</h3>
+	<div class="container">
 
-            <div>
-                <button data-id="age" >Age</button>
-                <button data-id="email">Email</button>
-                <button data-id="phone">Phone</button>
-            </div>
+		<div style="display:flex; justify-content: space-around;">
+			<span>Picture :</span>
+			<img id="img">
+		</div>
 
-            <div class="info">
-              <h4 >Additional Info</h4>
-              <div id="add-info" >
+		<div style="display:flex; justify-content: space-around;">
+			<span>Name :</span>
+			<span id="name"></span>
+		</div>
 
-              </div>
-            </div>
-            
-          <div>
-            <button id="getUser">Fetch the User</button>
-        </div>
-        </div>
+		<div  id="age" style="display:none; justify-content: space-around;">
+			<span>Age :</span>
+		</div>
+
+		<div id="phone" style="display:none; justify-content: space-around;">
+			<span>phone :</span>
+			<span ></span>
+		</div>
+
+		<div id="email" style="display:none; justify-content: space-around;">
+			<span>Email :</span>
+			<!-- <div>
+				Inline Style -> display: flex
+				External Style -> display : block
+				Parent (Inheritence) -> display: inline-block 
+				// Cascading                               60        100  40 20 10
+				// CSS specificity  -> CSS selectors -> tagname , id , class , text , data-id
+			</div> -->
+		</div>
+
+		<div  style="display:flex; justify-content: space-around;">
+			<button data-id = 'age'>Age</button>
+			<button data-id = 'phone'>Phone</button>
+			<button data-id = 'email'>Email</button>
+		</div>
+
+		<div style="display:flex; justify-content: space-around;">
+			<button id="getUser">Fetch user</button>
+		</div>
+	</div>
 	<!-- the entire body must be written by student -->
     <script type="text/javascript" src="./script.js">
 </script>
