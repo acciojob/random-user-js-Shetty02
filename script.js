@@ -63,14 +63,14 @@ const handelInfoButton = (event) =>  {
             data: user.dob.age,
         },
         {
-            id:"phone",
-            label : "Phone",
-            data: user.phone,
-        },
-        {
             id:"email",
             label : "Email",
             data: user.email,
+        },
+        {
+            id:"phone",
+            label : "Phone",
+            data: user.phone,
         },
     ]
     const id = event.target.dataset.id;
