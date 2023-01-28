@@ -6,7 +6,7 @@ let user = {}
 const imgElement = document.getElementById("img"),
  nameElement = document.getElementById("name"),
  additionalInfo = document.getElementById("add-info"),
- infoBtn = Array.from(document.querySelectorAll("[data-id]"))
+ infoBtn = Array.from(document.querySelectorAll("[id]"))
  fetchingUser = document.getElementById("getUser");
 
 const renderUsersBasicDetails = (user) =>{
