@@ -6,7 +6,7 @@ let user = {}
 const imgElement = document.getElementById("img"),
  nameElement = document.getElementById("name"),
  additionalInfo = document.getElementById("add-info"),
- infoBtn = Array.from(document.querySelectorAll("[id]"))
+ infoBtn = Array.from(document.querySelectorAll("[data-attr]"))
  fetchingUser = document.getElementById("getUser");
 
 const renderUsersBasicDetails = (user) =>{
@@ -72,7 +72,7 @@ const handelInfoButton = (event) =>  {
             data: user.email,
         },
     ]
-    const id = event.target.dataset.id;
+    const id = event.target.dataset.attr;
     const data = info.find((item) => item.id === id);
     // console.log("info",data)
     createInfoElement(data);
